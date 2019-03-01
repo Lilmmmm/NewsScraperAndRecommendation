@@ -15,18 +15,18 @@ class NewsPanel extends React.Component {
   }
 
   loadMoreNews(e) {
-    this.setState({
-      news: [
-            {'url': 'http://us.cnn.com/2017/02/15/politics/andrew-puzder-failed-nomination/index.html',
-             'title': "Inside Andrew Puzder's failed nomination",
-             'description': "In the end, Andrew Puzder had too much baggage",
-             'source': 'cnn',
-             'urlToImage': 'https://assets.dmagstatic.com/wp-content/uploads/2019/01/iStock-871070868-1024x683.jpg',
-             'digest': "3RjuEmoJo2601syZbU70HA==\n",
-             'reason': "Recommend"
-            }
-            ]
+    let request = new Request('http://localhost:3000/news', {
+      method: 'GET',
+      cache: 'no-cache'
     });
+
+    fetch(request)
+      .then((res) => res.json())
+      .then((news) => {
+        this.setState({
+          news: this.state.news ? this.state.news.concat(news) : news,
+        });
+      });
   }
 
   renderNews() {
@@ -39,7 +39,7 @@ class NewsPanel extends React.Component {
     });
 
     return (
-      <div className="container-floid">
+      <div className="container-fluid">
         <div className='list-group'>
           {news_list}
         </div>
