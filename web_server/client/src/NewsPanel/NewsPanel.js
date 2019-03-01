@@ -4,14 +4,27 @@ import React from 'react';
 
 import NewsCard from '../NewsCard/NewsCard'
 
+import _ from 'lodash';
+
 class NewsPanel extends React.Component {
   constructor() {
     super();
     this.state = { news: null};
+    this.handleScroll = this.handleScroll.bind(this);
   }
 
   componentDidMount() {
     this.loadMoreNews();
+    this.loadMoreNews = _.debounce(this.loadMoreNews, 1000); // all events raised in one sec are considered as only one
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll() {
+    let scrollY = window.scrollY || window.pageYOffset || document.documentElement.scrollTop;
+    if ((window.innerHeight + scrollY) >= (document.body.offsetHeight - 50)) {
+      console.log('Loading more news...');
+      this.loadMoreNews();
+    }
   }
 
   loadMoreNews(e) {
@@ -32,7 +45,7 @@ class NewsPanel extends React.Component {
   renderNews() {
     var news_list = this.state.news.map(function(news) {
       return (
-        <a className='list-group-item' key={news.digest} href="#">
+        <a className='list-group-item' href="#">
           <NewsCard news={news} />
         </a>
       );
