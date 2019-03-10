@@ -1,0 +1,4 @@
+{
+  "mongoDbUri": "mongodb://myl:1234qwer@ds213715.mlab.com:13715/onlinejudgesystem",
+  "jwtSecret": "Random String"
+}

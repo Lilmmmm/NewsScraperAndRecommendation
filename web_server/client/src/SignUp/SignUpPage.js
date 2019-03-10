@@ -39,7 +39,7 @@ class SignUpPage extends React.Component {
     // Post registeration data
     fetch('http://localhost:3000/auth/signup', {
       method: 'POST',
-      cache: false,
+      cache: 'no-cache',
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/json'

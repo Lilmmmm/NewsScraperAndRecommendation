@@ -6,7 +6,7 @@ class Auth {
    * @param string email
    */
 
-   static autenticateUser(token, email) {
+   static authenticateUser(token, email) {
      localStorage.setItem('token', token);
      localStorage.setItem('email', email);
    }
